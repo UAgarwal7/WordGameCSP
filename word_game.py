@@ -1,5 +1,6 @@
 """ a word game that has one user enter a word and the other try and guess it. Any number of letters. number will not be known to guesser guesser guesses words (no repeats)
 
+start of the game: guesser receives info about # of duplicate letters and how many times they appear
 receives hint about word length
 also gets relative position of letters -- first time guesser guesses a correct letter in the wrong spot, they will be told which direction a letter is in
 -- second+ time, they will be told the direction, and the letter -- correct letters will be known
@@ -14,10 +15,18 @@ things to make a guess work (put in function): function guess (parameter is word
 str guessed word
 list guessed word letters
 
+word processing at the beginning:
+    input answer word
+    make into list with each letter
+    search for duplicates
+        get to later - lower priority
+
+
 function guess (word to guess)
     input guessed word
     make each letter of the guessed word an element of a list guessed word
-    for loop going through the indexes of the guessed word list
+    for loop going through the indexes of the guessed word list (iteration)
         use the find function in a try-except for each letter in the guessed string to get the index
-        if it is successful, add the letter and the index to a dictionary
+        if it is successful, add the letter and the index to a dictionary (selection)
+    Once the entire guessed word has been gone through, return the dictionary
 """
