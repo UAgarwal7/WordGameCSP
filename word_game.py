@@ -33,22 +33,39 @@ Edge cases to test:
     duplicate letters in answer
     duplicate letters in guess
 """
-answer_word = input("Enter the word to be guessed: ")
-answer_list = list(answer_word)
-# insert code to search for duplicate here
-current_guessed_letters = {}
 
-game_end = False
-while not game_end:
-    guessed_word = input("Guess a word: ")
-    guessed_list = list(guessed_word)
-    for x in range (0,len(guessed_list)):
-        current_letter: guessed_list[x]
+
+def guess(answer_list, guess_list):
+    current_guessed_letters = {}
+    for x in range(0, len(guess_list)):
+        current_letter = guess_list[x]
         try:
             answer_index = answer_list.index(current_letter)
         except:
             break
         else:
-            current_guessed_letters[current_letter] = answer_index - x
+            current_guessed_letters.update({current_letter: str(answer_index - x)})
             # gives the differences of the indexes of the letter in the guessed word and the answer
-        print(current_guessed_letters)
+        #print(current_guessed_letters)
+    return current_guessed_letters
+
+
+answer_word = input("Enter the word to be guessed: ")
+answer_list = list(answer_word)
+# insert code to search for duplicate here
+game_end = False
+print('The word has ' + str(len(answer_word)) + ' letters.')
+while not game_end:
+    guessed_word = input("Guess a word: ")
+    guessed_list = list(guessed_word)
+    correct_letters = guess(answer_list, guessed_list)
+    # I have a dictionary that has each correct letter and its relative position to the answer
+    # I need to display this to the player
+    if guessed_word == answer_word:
+        game_end = True
+    else:
+        for x in correct_letters:
+            print("The letter " + str(x) + " is " + correct_letters[x] + " position(s) ahead in the answer")
+        # print(correct_letters)
+
+print('Thanks for playing!')
