@@ -46,26 +46,37 @@ def guess(answer_list, guess_list):
         else:
             current_guessed_letters.update({current_letter: str(answer_index - x)})
             # gives the differences of the indexes of the letter in the guessed word and the answer
-        #print(current_guessed_letters)
+        # print(current_guessed_letters)
     return current_guessed_letters
 
 
 answer_word = input("Enter the word to be guessed: ")
 answer_list = list(answer_word)
 # insert code to search for duplicate here
+answer_with_count = {}
+for x in range(len(answer_list)):
+    answer_with_count.update({answer_list[x]: 0})
+    print(answer_with_count)
 game_end = False
 print('The word has ' + str(len(answer_word)) + ' letters.')
+print('Note: All hints refer to the last instance of the letter in the guess.')
+print('Example: The word hello told you that the letter l is 2 positions ahead in the answer.')
+print('This refers to the second l, so the letter l is at the 6th position in the answer.')
 while not game_end:
     guessed_word = input("Guess a word: ")
     guessed_list = list(guessed_word)
-    correct_letters = guess(answer_list, guessed_list)
+    current_guessed_letters = guess(answer_list, guessed_list)
     # I have a dictionary that has each correct letter and its relative position to the answer
     # I need to display this to the player
     if guessed_word == answer_word:
         game_end = True
     else:
-        for x in correct_letters:
-            print("The letter " + str(x) + " is " + correct_letters[x] + " position(s) ahead in the answer")
-        # print(correct_letters)
+        for x in current_guessed_letters:
+            answer_with_count[x] += 1
+            # take the value x and look for its value in the other list to
+            if answer_with_count[x] >= 2:
+                print("The letter " + str(x) + " is " + current_guessed_letters[x] + " position(s) ahead in the answer")
+            elif answer_with_count[x] == 1:
+                print("A letter you guessed is " + current_guessed_letters[x] + " position(s) ahead in the answer")
 
 print('Thanks for playing!')
